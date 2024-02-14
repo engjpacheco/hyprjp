@@ -1,0 +1,19 @@
+#!/bin/sh
+
+version=$( uname -r)
+
+# actualversion=$(pacman -Si linux-zen |
+	# grep Version | awk -F: '{ print $2 }' |
+	# sed 's/^.//' | sed 's/.zen1-1//' | head -n 1 )
+
+case $BLOCK_BUTTON in
+	# 1) notify-send "Kernel version 🐧" "Linux-zen $version" ;;
+	1) notify-send "Kernel version 🐧" ;;
+	6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac
+
+# if [ $version != $actualversion ] ; then
+notify-send "$version 🐧"
+# fi
+
+# echo "🐧"

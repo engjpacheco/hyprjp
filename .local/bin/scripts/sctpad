@@ -1,0 +1,20 @@
+#!/bin/sh
+SCRATCHPAD_NAME=$1
+[ -z $SCRATCHPAD_NAME ] && SCRATCHPAD_NAME="sctpad"
+case "$1" in
+
+ htop)	   	entry="term -h"   ;;
+ tg)   		entry="term -a"   ;;
+ term)	   	entry="term -t"  ;;
+ fm)   		entry="term -f"  ;;
+ neomutt)   	entry="term -e"  ;;
+ mixer)		entry="term -p"  ;;
+ firefox)  	entry="firefox"   ;;
+ qutebrowser)   entry="qutebrowser"   ;;
+ emacs)   	entry="emacs"   ;;
+esac
+
+
+ xdotool search --onlyvisible --classname $SCRATCHPAD_NAME windowunmap \
+      || xdotool search --classname $SCRATCHPAD_NAME windowmap \
+      || $entry &

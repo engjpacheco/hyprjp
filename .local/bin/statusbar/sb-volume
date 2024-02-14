@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# Created By: Javier Pacheco - jpacheco@cock.li
+# Created On: 01/11/23
+# Project: volumen status
+
+status=$(amixer get Master |grep % |awk '{print $6}')
+
+case $status in
+	"[off]") icon1="*";;
+	"[on]") icon1="";;
+esac
+
+vol=$(amixer get Master |grep % |awk '{print $4}'|sed 's/[^0-9\%]//g')
+
+echo "[vol: $icon1$vol]"

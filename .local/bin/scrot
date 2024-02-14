@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# Location of link to wallpaper link.
+#maim /tmp/screenshoot.png | xclip -selection clipboard -t /tmp/screenshoot.png && notify-send -i /tmp/screenshoot.png "Screenshoot stored in" "/tmp/screenshoot.png" 
+maim -d 1 | tee /tmp/pic.png | xclip -selection clipboard -t image/png && herbe "Screenshoot stored in /tmp/pic.png and copied to the clipboard"
+

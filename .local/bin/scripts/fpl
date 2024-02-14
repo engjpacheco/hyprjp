@@ -1,0 +1,4 @@
+#!/bin/sh
+
+awk '{print $2}' ~/vids/track.txt | dmenu -i -l 5 -p "select url=" | xargs vid.sh "$@"
+

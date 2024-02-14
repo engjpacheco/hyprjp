@@ -1,0 +1,38 @@
+#!/bin/sh
+
+# Created By: Javier Pacheco - jpacheco@cock.li
+# Created On: 23/10/2023
+# Project: dmenu-exit script
+
+dm="dmenu -i -l 5"
+
+# Options
+shutdown="Shutdown"
+reboot="Reboot"
+hibernate="Sleep"
+lock="Lock"
+
+chosen=$(printf "$reboot\n$shutdown\n$hibernate\n$lock" | $dm -p "Void-Session:")
+case $chosen in
+
+    $shutdown)
+      herbe  "El sistema se apagara en...." "$( echo "15 segundos" )" &
+      sleep 5
+      herbe  "El sistema se apagara en...." "$( echo "10 segundos" )" &
+      sleep 5 
+      herbe  "El sistema se apagara en...." "$( echo "5 segundos" )" &
+      sleep 4
+      doas shutdown -P now 
+        ;;
+    $reboot)
+      doas reboot
+        ;;
+    $hibernate)
+      doas zzz && slock
+        ;;
+    $lock)
+      lock
+      ;;
+    *) herbe "Ninguna opcion fue seleccionada..."
+esac
+

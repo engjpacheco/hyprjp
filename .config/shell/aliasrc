@@ -1,0 +1,82 @@
+#!/bin/sh
+
+# Use neovim for vim if present.
+[ -x "$(command -v nvim)" ] && alias vim="nvim" vimdiff="nvim -d"
+
+# Use $XINITRC variable if file exists.
+[ -f "$XINITRC" ] && alias startx="startx $XINITRC"
+
+# doas not required for some system commands
+for command in mount reboot zzz shutdown umount sv updatedb su ; do
+	alias $command="doas $command"
+done; unset command
+
+# Verbosity and settings that you pretty much just always are going to want.
+alias \
+	rb="reboot" \
+	cp="cp -iv" \
+	de="doas nvim" \
+	mv="mv -iv" \
+	rm="rm -vI" \
+	bc="bc -ql" \
+	py="python" \
+	mkd="mkdir -pv" \
+	yt="youtube-dl --add-metadata -i" \
+	yta="yt-dlp -x --audio-format m4a" \
+	yv="ytfzf -t" \
+	t="tmux" \
+	ta="tmux a" \
+	ffmpeg="ffmpeg -hide_banner" \
+	cls="clear; ls" \
+	clera="clear"
+
+# Colorize commands when possible.
+alias \
+	ls="ls --color" \
+	cat="bat" \
+	xw="setbg" \
+	lsa="ls -a --color" \
+	lsl="ls -l --color" \
+	lsla="ls -la --color" \
+	grep="grep --color=auto" \
+	ccat="highlight --out-format=ansi"
+	# diff="diff --color=auto" \
+
+# These common commands are just too long! Abbreviate them.
+alias \
+	ka="killall -9" \
+	fp="devour mpv" \
+	sxiv="devour nsxiv" \
+	smci="doas make clean install" \
+	smi="doas make install" \
+	mi="make install" \
+	smcu="doas make clean uninstall" \
+	smu="doas make uninstall" \
+	mi="make install" 
+
+alias \
+	g="git" \
+	trem="transmission-remote" \
+	YT="youtube-viewer" \
+	sdn="shutdown -h now" \
+	qb="qutebrowser" \
+	v="$EDITOR" \
+	xr="doas xbps-remove -R" \
+	xq="xbps-query" \
+	z="devour zathura" \
+	pipes="pipes.sh" \
+	arcom="arduino-cli compile --fqbn arduino:avr:uno" \
+	arup="arduino-cli upload -p /dev/ttyUSB0 --fqbn arduino:avr:uno"
+
+# Directories
+alias \
+	tm="cd /tmp" \
+	r="cd $HOME/code/rust" \
+	n="nnn -e" \
+	mu='yt-dlp "$(ytfzf -D -I L "$1")" -o - | ffplay - -nodisp -autoexit -loglevel quiet' \
+	ytb='yt-dlp -f b "$(ytfzf -D -I L "$1")" -o - | ffplay - -autoexit -loglevel quiet'
+
+
+ecf(){ du -ax ~/.config/ | awk '{ print $2 }' | fzf-tmux -p | xargs -r nvim }
+esc(){ du -ax ~/.local/bin/ | awk '{ print $2 }' | fzf-tmux -p | xargs -r nvim }
+xin(){ du -ax ~/.local/src/void-packages/srcpkgs/ | awk '{ print $2 }' | fzf-tmux -p }

@@ -1,0 +1,20 @@
+#/bin/sh
+
+## convert an image to .xbm with ImageMagick and set it as wallpaper with xsetroot
+
+# . $HOME/.config/wms/wms_var 
+
+TARGET=$1    # new image file
+BITMAP="$HOME/.bitmap.xbm"    # path to current bitmap 
+RES=$(xdpyinfo | awk '/dimensions/ {print $2}')    # screen resolution
+
+if [ -n "$TARGET" ]; then    # if a new image is to be set
+    if [ -f "$TARGET" ]; then    # if the provided name is a file
+        convert $TARGET -negate -resize "!$RES" -layers Flatten $BITMAP    #  convert given image as bitmap 
+        xsetroot -fg "#bbbbbb" -bg "#000000" -bitmap $BITMAP  # bitmap to desktop
+
+    fi
+
+else
+    xsetroot -fg "#bbbbbb" -bg "#000000" -bitmap $BITMAP    # just bitmap to desktop
+fi

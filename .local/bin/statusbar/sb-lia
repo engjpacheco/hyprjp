@@ -1,0 +1,13 @@
+#!/bin/sh
+
+
+# The clickable help menu. Middle click to restart wm.
+
+
+case $BLOCK_BUTTON in
+	1) lia ;;
+	2) restartwm ;;
+	3) notify-send "Videos de Lia la prins" "Reproduce los videos de la prins" ;;
+	6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac;
+echo "👧Lia"

@@ -1,0 +1,16 @@
+#!/bin/bash
+
+WINDOW=$(wmctrl -l -x | tr '.' ' ' | awk '{print $3,$6}' | dmenu -i -x 935 -y 6 -z 420 -l 8 -p windowkill | awk '{print $1}')
+
+windowscount() {
+    pgrep $WINDOW | wc -l
+}
+
+## kill window/s ##
+if [ "$(windowcount)" == "1" ]; then
+    pkill $(pgrep $WINDOW)
+
+else
+    killall $WINDOW
+
+fi

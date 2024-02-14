@@ -1,0 +1,5 @@
+#!/bin/sh
+
+
+ffmpeg -i $1 -vcodec libx265 -crf 28 $2.mp4 && \
+    herbe "Video $1 was compressed" || herbe "Fail to compress video..."

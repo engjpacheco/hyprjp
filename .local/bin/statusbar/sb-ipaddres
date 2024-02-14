@@ -1,0 +1,5 @@
+#!/bin/sh
+
+ip=$(ip a | grep wlan | grep inet | awk '{print $2}' | sed 's/\/.*//')
+
+echo "[ ip:$ip ]"

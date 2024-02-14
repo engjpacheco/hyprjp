@@ -1,0 +1,9 @@
+#!/bin/sh
+
+while [ ! /dev/input/event13 ]; do
+  sleep 1 
+done
+kmonad /home/javier/.config/kmonad/javier.kbd & \
+notify-send Keyboard "<font size=16 color=red><b><i>Status: connected</b></i></font>"
+
+

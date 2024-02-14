@@ -1,0 +1,39 @@
+#!/bin/sh
+
+# Created By: Javier Pacheco - jpacheco@cock.li
+# Created On: 26/10/23
+# Project: Alsa volume control
+
+toggle ()
+{
+   amixer sset Master toggle 
+}
+
+up ()
+{
+    amixer sset Master 5%+
+}
+
+down ()
+{
+    amixer sset Master 5%-
+}
+
+mute ()
+{
+    amixer sset Master mute
+
+}
+
+case "$1" in
+    toggle) toggle ; pkill -RTMIN+10 dwmblocks
+    ;;
+    up) up ; pkill -RTMIN+10 dwmblocks
+    ;;
+    down) down ; pkill -RTMIN+10 dwmblocks
+    ;;
+    mute) mute ; pkill -RTMIN+10 dwmblocks
+    ;;
+    *) exit 1
+esac
+

@@ -1,0 +1,31 @@
+#!/bin/sh
+
+SIZE1=150x40+210+100
+SIZE2=130x30+605+30
+
+exists()
+{
+  command -v "$1" >/dev/null 2>&1
+}
+
+if exists st; then
+  EMULATOR="st"
+  case $1 in
+   -e) $EMULATOR -n neomutt -g $SIZE1 -e neomutt ;;
+   -f) $EMULATOR -n fm -g 150x35+300+100 -e nnn -d ;;
+   -h) $EMULATOR -n htop -g $SIZE2 -e htop ;;
+   -p) $EMULATOR -n pulsemixer -g $SIZE1 -e alsamixer ;;
+   -t) $EMULATOR -n term -g $SIZE1 ;;
+   -a) $EMULATOR -n tg -e arigram ;;
+  esac
+elif
+  EMULATOR="urxvt"; then
+  case $1 in
+   -e) $EMULATOR -name neomutt -g 150x30+150+100 -e neomutt ;;
+   -f) $EMULATOR -name fm -g 150x35+300+100 -e nnn -d ;;
+   -h) $EMULATOR -name htop -g $SIZE2 -e htop ;;
+   -p) $EMULATOR -name pulsemixer -g $SIZE1 -e alsamixer ;;
+   -t) $EMULATOR -name term -g $SIZE1 ;;
+   -a) $EMULATOR -name tg -e arigram ;;
+  esac
+fi

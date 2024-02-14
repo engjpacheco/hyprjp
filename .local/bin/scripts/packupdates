@@ -1,0 +1,9 @@
+#!/bin/sh
+UPDATES=$(xbps-install --memory-sync --dry-run --update | wc -l)
+
+if [ $UPDATES -ge 1 ]; then
+    # herbe "You have $UPDATES packages to update."
+    echo "[xbps: $UPDATES]"
+else
+    herbe "System Packages are all up to date."
+fi

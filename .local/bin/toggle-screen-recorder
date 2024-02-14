@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# Created By: Javier Pacheco - javier@jpacheco.xyz
+# Created On: 10/02/24
+# Project: Screen recorder in wayland
+
+psid=$(pgrep wf-recorder)
+[ -z $psid ] && wf-recorder -f $HOME/$(date +'recording_%Y-%m-%d-%H%M.mp4') || pkill --signal SIGINT wf-recorder

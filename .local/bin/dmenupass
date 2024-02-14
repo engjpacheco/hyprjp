@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# This script is the SUDO_ASKPASS variable, meaning that it will be used as a
+# password prompt if needed.
+
+dmenu -x 560 -y 20 -z 700 -P -p "$1" <&- && echo >/dev/null 2>&1

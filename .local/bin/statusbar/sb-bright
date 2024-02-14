@@ -1,0 +1,16 @@
+#!/bin/sh
+
+
+bright="$(xbacklight -get)"
+intbright=${bright%.*}
+
+icon="🔆"
+# if [ "$intbright" -gt "70" ]; then
+#         icon="🌕"
+# elif [ "$intbright" -gt "30" ]; then
+#         icon="🌗"
+# else
+#         icon="🌑"
+# fi
+
+echo "$icon$intbright%"

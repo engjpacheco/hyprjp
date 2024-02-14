@@ -1,0 +1,60 @@
+#!/bin/sh
+
+# Created By: Javier Pacheco - jpacheco@cock.li
+# Created On: 23/10/2023
+# Project: Fetch tool
+
+#Informacion del sistema
+ 
+kernel="$(uname -r)"
+name="$(printf "javier@void")"
+os="$(echo "$PRETTY_NAME")"
+sys="$(echo $(uname))"
+shell=$(printf "$(basename $SHELL)")
+init=$(cat /proc/1/comm)
+cpu="$(lscpu | awk '/name/ {print $3, $4}')"
+tr="$(printf "$TERM")"
+
+#Información del WM
+
+ui=$(echo "dwm")
+
+#Información del manejador de paquetes
+
+manager=$(which xbps-query 2>/dev/null)
+manager=${manager##*/}
+case $manager in
+        xbps-query) packages="$(xbps-query -l | wc -l)";;
+esac
+
+#Detección de ram
+
+memused=$( free -m | awk '/^Mem:/ {print $3 "MiB"}')
+memtotal=$( free -m | awk '/^Mem:/ {print $2 "MiB"}')
+
+#Detección de disco
+
+storageused=$(df -h / | grep "/" | awk '{print $3}')
+storageavail=$(df -h / | grep "/" | awk '{print $2}')
+st=$(df -h / | grep "/" | awk '{print $2" / " $4" / "$3}')
+
+cat <<EOF
+
+     [0;1;34;94m┃[0m [0;1;34;94m┃┏━┃┛┏━[0m   [0;1;34;94m┃[0m  [0;1;34;94m┛[0;34m┏━[0m [0;34m┃[0m [0;34m┃┃[0m [0;34m┃[0m
+     [0;1;34;94m┃[0m [0;1;34;94m┃┃[0m [0;1;34;94m┃┃┃[0m [0;34m┃━┛┃[0m  [0;34m┃┃[0m [0;34m┃┃[0m [0;34m┃[0m [0;34m┛[0m 
+      [0;34m┛[0m [0;34m━━┛┛━━[0m   [0;34m━━┛┛[0;37m┛[0m [0;37m┛━━┛┛[0m [0;37m┛[0m
+$printf╭───────────────────────────────────╮$printf $rst
+     Host············${name}${reset}
+     Kernel··········${kernel}${reset}
+     WM··············${ui}${reset}
+     Packages········${packages}${reset}
+     Pkg Manager·····${manager}${reset}
+     Terminal········${tr}${reset}
+     Shell···········${shell}${reset}
+     Init············${init}${reset}
+     CPU·············${cpu}${reset}
+     Memory··········${memused}/${memtotal}${reset}
+     Storage·········${storageused}/${storageavail}
+$printf╰───────────────────────────────────╯$printf $rst
+EOF
+

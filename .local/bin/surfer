@@ -1,0 +1,19 @@
+#!/bin/bash
+
+X_BROWSER="surf -bdgIS -a @ -z 1.2"
+
+in=$(cat .bookmarks | cut -d '-' -f 1 | dmenu -p bookmarks: -l 8)      # dmenu input
+match=$(cat .bookmarks | grep $in | cut -d '-' -f 2)                   # check match with ~/.bookmarks file
+
+txid=$(tabbed -c -d 2>/dev/null)
+
+if [ "$match" != "" ]; then
+    $X_BROWSER -e $txid $match                   # exec bookmark url
+
+elif [ -n "$in" ]; then
+    $X_BROWSER -e $txid "https://jpstart.netlify.app"     # search in searx
+
+fi
+
+
+

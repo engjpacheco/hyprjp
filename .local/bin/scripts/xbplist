@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Created By: Javier Pacheco - jpacheco@cock.li
+# Created On: 25/10/2023
+# Project: List xbps pkgs to update
+
+PKGS=$(xbps-install -nuMS | awk '{print $1}')
+
+herbe $PKGS

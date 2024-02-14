@@ -1,0 +1,11 @@
+#!/bin/sh
+
+echo "Enter the name of the script: "
+read script
+
+dir=$(cat ~/.local/bin/scripts/.path | dmenu -p "Select the path: " -l 10)
+
+echo "#!/bin/sh" > $dir/$script &&
+chmod +x $dir/$script &&
+nvim -c "norm Go" \
+  -c "startinsert" $dir/$script

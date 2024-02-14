@@ -1,0 +1,15 @@
+#!/bin/sh
+# A dmenu wrapper script for system functions.
+case "$(readlink -f /sbin/init)" in
+	*systemd*) ctl='systemctl' ;;
+	*) ctl='halt' ;;
+esac
+
+case "$(printf "🔒 lock\n♻️ renew dwm\n🐻 hibernate\n🔃 reboot\n🖥️shutdown" |dmenu -i -l 20 -p 'Action: ' )" in
+	'🔒 lock') lock ;;
+	'♻️ renew dwm') kill -HUP "$(pgrep -u "$USER" "\bdwm$")" ;;
+	'🐻 hibernate') doas  zzz ;;
+	'🔃 reboot') reboot ;;
+	'🖥️shutdown') doas shutdown -P now ;;
+	*) exit 1 ;;
+esac

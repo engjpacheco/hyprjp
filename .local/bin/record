@@ -1,0 +1,29 @@
+#!/bin/sh
+
+RECORD_VIDEO() {
+    ffmpeg -f x11grab -r 25 -s 1366x768 -i :0.0 -acodec pcm_s16le -vcodec libx264 -preset ultrafast -threads 0 -y /tmp/screencast.mkv
+ }
+
+RECORD_AUDIO_VIDEO() {
+    ffmpeg -video_size 1366x768 -framerate 25 -f x11grab -i :0.0 -f pulse -ac 2 -i default capture_video.mkv
+}
+
+OPTIONS="capture-v\ncapture-mic"
+
+
+ LAUNCHER="dmenu -x 1061 -y 5 -z 300 -l 5 -p Select: "
+
+option=`echo $OPTIONS | $LAUNCHER | awk '{print $1}' | tr -d '\r\n'`
+if [ ${#option} -gt 0 ]
+then
+    case $option in
+      capture-v)
+        $(RECORD_VIDEO)
+        ;;
+      capture-mic)
+        $(RECORD_AUDIO)
+        ;;
+      *)
+        ;;
+      esac
+fi
